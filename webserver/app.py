@@ -1,18 +1,15 @@
-from flask import Flask, render_template, flash, request, send_file, jsonify
-#  import json
+from flask import Flask, render_template, flash, request, jsonify
 from wtforms import Form, TextField, validators
 from fastai.basic_train import load_learner
 import praw
 import re
 import os
-import requests
-import pickle
-import nltk
 
 app = Flask(__name__)
-DEBUG = True
+DEBUG = False
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
+port = int(os.environ.get("PORT", 5000))
 
 reddit = praw.Reddit(client_id = "CE_CHBOiktT0mw",
 					client_secret = "1_hli9su-rwvR2dv2_0jxuJNLqA",
@@ -55,14 +52,13 @@ class ReusableForm(Form):
 @app.route('/automated_testing', methods=['POST', 'GET'])
 def automated_testing():
     if request.method == 'GET':
-        return "automated testing. post a file with a reddit post url in each line for flair prediction"
+        return "automated testing. post a text file under 'file' field with a reddit post url in each line for flair prediction"
+    if 'file' not in request.files:
+        return "send the file under 'file' field\n"
     file = request.files['file']
     urls = file.readlines()
-    prediction = {url.decode("utf-8"):predict(url.decode("utf-8")) for url in urls}
-    print(prediction)
+    prediction = {url.decode("utf-8")[:-1]:predict(url.decode("utf-8")) for url in urls}
     return jsonify(prediction)
-    #  json.dump(prediction, result_file)
-    #  return send_file("results.json", mimetype='text/csv', as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(debug=DEBUG)
+    app.run(debug=DEBUG, host='0.0.0.0', port=port)
