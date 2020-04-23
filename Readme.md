@@ -47,12 +47,12 @@ For automated testing use http://reddit-flair-classifier.herokuapp.com/automated
 Make a POST request to this url with a file that contains reddit post url in each line and returns the predicted flairs in json format.
 
 ```
-curl -X POST -F 'file=@/path/to/file' http://reddit-flair-classifier.herokuapp.com/automated_testing
+curl -X POST -F 'upload_file=@/path/to/file' http://reddit-flair-classifier.herokuapp.com/automated_testing
 ```
 
 To save the response to a file use this
 
 ```
-curl -X POST -F 'file=@/path/to/file' http://reddit-flair-classifier.herokuapp.com/automated_testing >> response_file
+curl -X POST -F 'upload_file=@/path/to/file' http://reddit-flair-classifier.herokuapp.com/automated_testing >> response_file
 ```
 

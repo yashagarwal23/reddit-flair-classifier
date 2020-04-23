@@ -15,7 +15,7 @@ reddit = praw.Reddit(client_id = "CE_CHBOiktT0mw",
 					client_secret = "1_hli9su-rwvR2dv2_0jxuJNLqA",
 					user_agent = "reddit_scraper",
 					username = "yashagarwal23",
-					password = "Hisar*123")
+					password = "watering_plants")
 
 classifier = load_learner(".", 'reddit_flair_classifier')
 
@@ -52,10 +52,10 @@ class ReusableForm(Form):
 @app.route('/automated_testing', methods=['POST', 'GET'])
 def automated_testing():
     if request.method == 'GET':
-        return "automated testing. post a text file under 'file' field with a reddit post url in each line for flair prediction"
-    if 'file' not in request.files:
-        return "send the file under 'file' field\n"
-    file = request.files['file']
+        return "automated testing. post a text file under 'upload_file' field with a reddit post url in each line for flair prediction"
+    if 'upload_file' not in request.files:
+        return "send the file under 'upload_file' field\n"
+    file = request.files['upload_file']
     urls = file.readlines()
     prediction = {url.decode("utf-8")[:-1]:predict(url.decode("utf-8")) for url in urls}
     return jsonify(prediction)
