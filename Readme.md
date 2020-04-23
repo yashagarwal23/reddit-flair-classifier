@@ -20,6 +20,8 @@ Final Flair Count :-
 
 ![](final_flair_count.png)
 
+The final csv file can be downloaded from [here](https://drive.google.com/file/d/1U2sAbiCkxNsj4JwX1d2A1u9Ty8eK_oJ3/view?usp=sharing)
+
 
 
 ## Models
